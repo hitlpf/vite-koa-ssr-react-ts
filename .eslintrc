@@ -1,0 +1,58 @@
+{
+  "extends": ["@tencent/eslint-config-tencent", "plugin:sonarjs/recommended"], // "@tencent/eslint-config-tencent/prettier"
+  "globals": {
+    "require": false,
+    "module": false,
+    "$": false,
+    "window": false,
+    "document": false,
+    "Date": false,
+    "Image": false,
+    "Event": false,
+    "uigs_pv": false,
+    "uigs_cl": false,
+    "MutationObserver": false
+  },
+  // "parser": "babel-eslint",
+  "parser": "@typescript-eslint/parser",
+  "plugins": ["@typescript-eslint"],
+  "parserOptions": {
+    "ecmaVersion": 2018,
+    "allowImportExportEverywhere": true
+  },
+  "rules": {
+    "no-use-before-define":[
+      "error",
+      {
+        "functions": false,
+        "classes": false
+      }
+    ],
+    // 针对 TypeScript 项目，替换原生规则
+    "no-unused-vars": "off",
+    "@typescript-eslint/no-unused-vars": "error",
+    "no-plusplus": "warn", //禁止使用++，--
+    "prefer-const": "warn",
+    "camelcase": "warn",
+    "space-before-function-paren": "warn",
+    "valid-jsdoc": "off",
+    "sonarjs/cognitive-complexity": "off",
+    "sonarjs/prefer-immediate-return": "warn",
+    "sonarjs/no-duplicate-string": "warn",
+    "sonarjs/no-duplicated-branches": "warn",
+    "sonarjs/no-collapsible-if": "warn",
+    "sonarjs/no-identical-functions": "warn",
+    "sonarjs/prefer-object-literal": "warn",
+    "sonarjs/no-small-switch": "off"
+  },
+  "overrides": [
+    {
+      "files": [
+        "jesttest/**/*.test.js"
+      ],
+      "env": {
+        "jest": true
+      }
+    }
+  ]
+}
