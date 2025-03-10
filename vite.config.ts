@@ -12,6 +12,19 @@ export default defineConfig({
     sourcemap: false,        // Sourcemap 生成
     minify: 'esbuild',       // 压缩工具
     emptyOutDir: true,       // 清空输出目录
+    rollupOptions: {
+      output: {
+        manualChunks(id) {
+          if (id.includes('node_modules')) {
+            const moduleName = id.split('node_modules/')[1].split('/')[0];
+            if (['react', 'react-dom'].includes(moduleName)) {
+              // 将react和react-dom 打包到vendor-react中
+              return 'vendor-react';
+            }
+          }
+        },
+      },
+    },
   },
   plugins: [react()],
 });
