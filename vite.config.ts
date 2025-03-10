@@ -2,15 +2,16 @@ import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 
 export default defineConfig({
-  // rollupOptions以上的这些配置都是默认，可以不写
+  // 公共路径，可以设置为CDN地址
+  // base: 'https://cdn.yourdomain.com/myapp/',
   build: {
-    outDir: 'dist',          // 输出目录
-    assetsDir: 'assets',     // 静态资源子目录
-    assetsInlineLimit: 4096, // 资源内联阈值
-    cssCodeSplit: true,      // CSS 代码拆分
-    sourcemap: false,        // Sourcemap 生成
-    minify: 'esbuild',       // 压缩工具
-    emptyOutDir: true,       // 清空输出目录
+    outDir: 'dist',          // 输出目录（默认）
+    assetsDir: 'assets',     // 静态资源子目录（默认）
+    assetsInlineLimit: 4096, // 资源内联阈值（默认）
+    cssCodeSplit: true,      // CSS 代码拆分（默认）
+    sourcemap: false,        // Sourcemap 生成（默认）
+    minify: 'esbuild',       // 压缩工具（默认）
+    emptyOutDir: true,       // 清空输出目录（默认）
     rollupOptions: {
       output: {
         manualChunks(id) {
