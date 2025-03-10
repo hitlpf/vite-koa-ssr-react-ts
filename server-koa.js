@@ -11,6 +11,10 @@ const base = process.env.BASE || '/';
 const app = new Koa();
 const router = new Router();
 
+// 如果koaStatic在前，会优先尝试匹配静态文件（如index.html），若找到则直接返回响应，​跳过后续路由。
+app.use(router.routes());
+app.use(router.allowedMethods());
+
 let vite;
 
 // 开发环境中间件
@@ -32,10 +36,7 @@ if (!isProduction) {
   app.use(koaStatic('./dist/client', { extensions: [''] })); // 静态文件服务
 }
 
-app.use(router.routes());
-app.use(router.allowedMethods());
-
-router.get('/web', async (ctx) => {
+router.get(['/', '/web'], async (ctx) => {
   try {
     const url = ctx.path.replace(base, '');
     let template;

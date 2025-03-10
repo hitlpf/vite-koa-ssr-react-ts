@@ -13,4 +13,4 @@ npm run build:server
 npm run preview
 
 ### 访问
-http://localhost:5177/web
+http://localhost:5177

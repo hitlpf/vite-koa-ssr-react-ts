@@ -1,9 +1,8 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 
-// https://vite.dev/config/
 export default defineConfig({
-  // build的这些配置都是默认，可以不写
+  // rollupOptions以上的这些配置都是默认，可以不写
   build: {
     outDir: 'dist',          // 输出目录
     assetsDir: 'assets',     // 静态资源子目录
