@@ -13,6 +13,7 @@ export default defineConfig({
     minify: 'esbuild',       // 压缩工具（默认）
     emptyOutDir: true,       // 清空输出目录（默认）
     rollupOptions: {
+      input: './index.html', // 客户端入口HTML文件（默认）
       output: {
         manualChunks(id) {
           if (id.includes('node_modules')) {
