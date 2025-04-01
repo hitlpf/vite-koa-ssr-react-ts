@@ -1,5 +1,31 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
+import { extname } from 'path';
+
+const basePath = '/';
+
+function addOfflineBidQuery({
+  offlineBid,
+}: {
+  offlineBid: string;
+}) {
+  return {
+    name: 'append-query-plugin',
+    generateBundle(_: any, bundle: any) {
+      Object.keys(bundle).forEach((fileName) => {
+        if (fileName.endsWith('.js')) {
+          Object.values(bundle).forEach((chunk) => {
+            const chunkInfo: any = chunk;
+            if (chunkInfo.code) {
+              const importFileName = fileName.split('/').pop();
+              chunkInfo.code = chunkInfo.code.replace(`"./${importFileName}"`, `"./${importFileName}?qb_c_bid=${offlineBid}"`);
+            }
+          });
+        }
+      });
+    },
+  };
+}
 
 export default defineConfig({
   // 公共路径，可以设置为CDN地址
@@ -27,5 +53,17 @@ export default defineConfig({
       },
     },
   },
-  plugins: [react()],
+  plugins: [
+    react(),
+    addOfflineBidQuery({ offlineBid: '93' }),
+  ],
+  // 自定义构建后资源 URL 的高级配置
+  experimental: {
+    renderBuiltUrl(filename) {
+      if (extname(filename) === '.js' || extname(filename) === '.css') {
+        return `${basePath}${filename}?qb_c_bid=93`;
+      }
+      return `${basePath}${filename}`;
+    },
+  },
 });
